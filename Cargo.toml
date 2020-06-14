@@ -1,8 +1,14 @@
 [package]
 name = "iuliia-rust"
 version = "0.1.0"
-authors = ["Kilin Maksim <maximk@hflabs.ru>"]
+authors = ["Kilin Maksim <https://github.com/massita99>"]
 edition = "2018"
+license = "MIT"
+homepage = "https://github.com/massita99/iuliia-rust"
+repository = "https://github.com/massita99/iuliia-rust"
+description = """
+Transliterate Cyrillic → Latin in every possible way https://dangry.ru/iuliia/
+"""
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
