@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/massita99/iuliia-rust.svg?branch=master)](https://travis-ci.org/massita99/iuliia-rust)
 # iuliia-rust
 Transliterate Cyrillic → Latin in every possible way https://dangry.ru/iuliia/
 
@@ -6,8 +7,8 @@ Transliteration means representing Cyrillic data (mainly names and geographic lo
 
 `Iuliia` makes transliteration as easy as:
 
-```iuliia_rust::parse_by_schema_name("Юлия", "wikipedia") -> Yuliya
-
+```rust
+iuliia_rust::parse_by_schema_name("Юлия", "wikipedia") -> Yuliya
 ```
 
 ## Why use `Iuliia`
