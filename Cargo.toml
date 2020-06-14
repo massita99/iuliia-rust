@@ -6,6 +6,7 @@ edition = "2018"
 license = "MIT"
 homepage = "https://github.com/massita99/iuliia-rust"
 repository = "https://github.com/massita99/iuliia-rust"
+readme = "README.md"
 description = """
 Transliterate Cyrillic → Latin in every possible way https://dangry.ru/iuliia/
 """

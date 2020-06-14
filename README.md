@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/massita99/iuliia-rust.svg?branch=master)](https://travis-ci.org/massita99/iuliia-rust)
+![Crates.io](https://img.shields.io/crates/v/iuliia-rust)
+![Crates.io](https://img.shields.io/crates/d/iuliia-rust)
 # iuliia-rust
 Transliterate Cyrillic → Latin in every possible way https://dangry.ru/iuliia/
 
