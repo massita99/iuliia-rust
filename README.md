@@ -13,6 +13,18 @@ Transliteration means representing Cyrillic data (mainly names and geographic lo
 iuliia_rust::parse_by_schema_name("Юлия", "wikipedia") -> Yuliya
 ```
 
+Get all schemas by:
+
+```rust
+iuliia_rust::Schema::all_schemas() -> Vec<Schema>
+```
+
+Or all schema names:
+
+```rust
+iuliia_rust::Schema::all_schema_names() -> Vec<&str>
+```
+
 ## Why use `Iuliia`
 
 - [20 transliteration schemas](https://github.com/nalgeon/iuliia) (rule sets), including all main international and Russian standards.
@@ -24,7 +36,7 @@ iuliia_rust::parse_by_schema_name("Юлия", "wikipedia") -> Yuliya
 Cargo.toml:
 ```toml
 [dependencies]
-iuliia-rust = "0.1.0"
+iuliia-rust = "^0.1.0"
 ```
 
 ## Contributing

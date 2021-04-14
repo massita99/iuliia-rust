@@ -13,7 +13,7 @@ const SCHEMA_DIR: Dir = include_dir!("./iuliia");
 const DUMMY_SYMBOL: &str = "$";
 
 /// Describe struct of transliterate schema
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct Schema {
     name: String,
     description: String,
@@ -31,6 +31,20 @@ impl Schema {
         let schema_file = SCHEMA_DIR.get_file(format!("{}{}", s, ".json"))
             .expect(&format!("There are no schema with name {}", s));
         serde_json::from_str(schema_file.contents_utf8().unwrap()).unwrap()
+    }
+
+    /// Return all available schema names
+    pub fn all_schema_names() -> Vec<&'static str> {
+        let glob = "*.json";
+        let paths_iterator = SCHEMA_DIR.find(glob).unwrap();
+        let map = paths_iterator.map(|entry| entry.path().to_str().unwrap().split('.').collect::<Vec<&str>>()[0]);
+
+        return map.collect::<Vec<&str>>();
+    }
+
+    /// Return all available schemas
+    pub fn all_schemas() -> Vec<Schema> {
+        return Schema::all_schema_names().into_iter().map(|name| Schema::for_name(name)).collect();
     }
 
     pub fn get_pref(&self, s: &str) -> Option<String> {
@@ -215,12 +229,48 @@ fn propagate_case_from_source(result: String, source_letter: &str, only_first_sy
 
 #[cfg(test)]
 mod tests {
-    use crate::{Schema, parse_by_schema};
+    use crate::{Schema, SCHEMA_DIR, parse_by_schema, parse_by_schema_name};
 
     #[test]
     fn schema_test() {
         let schema = Schema::for_name("ala_lc");
         assert_eq!(schema.name, "ala_lc")
+    }
+
+    #[test]
+    #[should_panic(expected = "There are no schema with name vZ7GkWocXQZCXJkKsCT3h2vTddTxxJ9")]
+    fn non_existing_schema_test() {
+        let _schema = Schema::for_name("vZ7GkWocXQZCXJkKsCT3h2vTddTxxJ9");
+    }
+
+    #[test]
+    fn schema_samples_test() {
+        let glob = "*.json";
+        for entry in SCHEMA_DIR.find(glob).unwrap() {
+            let schema_file= SCHEMA_DIR.get_file(entry.path());
+            let schema: Schema = serde_json::from_str(schema_file.unwrap().contents_utf8().unwrap()).unwrap();
+
+            for sample_pair in schema.samples.unwrap() {
+                let actual = parse_by_schema_name(&sample_pair[0], &schema.name);
+                assert_eq!(actual, sample_pair[1], "Samples mismatch for schema {}", schema.name);
+            }
+        }
+    }
+
+    #[test]
+    fn all_schema_names_test() {
+        for schema_name in Schema::all_schema_names() {
+            let schema = Schema::for_name(schema_name);
+            assert_eq!(schema.name, schema_name)
+        }
+    }
+
+    #[test]
+    fn all_schemas_test() {
+        for actual_schema in Schema::all_schemas() {
+            let expected = Schema::for_name(&actual_schema.name);
+            assert_eq!(expected, actual_schema)
+        }
     }
 
     #[test]
