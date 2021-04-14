@@ -1,6 +1,6 @@
 [package]
 name = "iuliia-rust"
-version = "0.1.0"
+version = "0.1.2"
 authors = ["Kilin Maksim <https://github.com/massita99>"]
 edition = "2018"
 license = "MIT"
